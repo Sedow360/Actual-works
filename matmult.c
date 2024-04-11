@@ -4,7 +4,7 @@
 
 int main()
 {
-    int c1, r1, r2, c2; 
+    int c1, r1, r2, c2; char c;
 
     for (int i = 0; ; i++)
     {
@@ -20,27 +20,61 @@ int main()
 
     int a[r1][c1], b[r2][c2], pro[r1][c2];
 
-    for (int i = 0; i < r1; i++)
+    for (int k = 0; ; )   //first matrix
     {
-        for (int j = 0; j < c1; j++)
+        printf("\nEnter the values for the first matrix in:\n");
+        for (int i = 0; i < r1; i++)
         {
-            printf("Enter the value of %d row and %d column of the first matrix: ", i+1, j+1);
-            scanf("%d", &a[i][j]);
+            for (int j = 0; j < c1; j++)
+            {
+                printf("%d row and %d column: ", i+1, j+1);
+                scanf("%d", &a[i][j]);
+            }
         }
+        printf("The first matrix is as follows:\n");
+        for (int i = 0; i < r1; i++)
+        {
+            for (int j = 0; j < c1; j++)
+            {
+                printf("%d ", a[i][j]);
+            }
+            printf("\n");
+        }
+
+        printf("Is it accurate?[y/n]: ");
+        scanf(" %c", &c);
         
+        if (c=='y') {break;}
     }
 
-    for (int i = 0; i < r2; i++)
+    for (int k = 0; ; )   //second matrix
     {
-        for (int j = 0; j < c2; j++)
+        printf("\nEnter the values for the second matrix in:\n");
+        for (int i = 0; i < r2; i++)
         {
-            printf("Enter the value of %d row and %d column of the second matrix: ", i+1, j+1);
-            scanf("%d", &b[i][j]);
+            for (int j = 0; j < c2; j++)
+            {
+                printf("%d row and %d column: ", i+1, j+1);
+                scanf("%d", &b[i][j]);
+            }
         }
+        printf("The second matrix is as follows:\n");
+        for (int i = 0; i < r2; i++)
+        {
+            for (int j = 0; j < c2; j++)
+            {
+                printf("%d ", b[i][j]);
+            }
+            printf("\n");
+        }
+
+        printf("Is it accurate?[y/n]\n");
+        scanf(" %c", &c);
         
+        if (c=='y') {break;}
     }
 
-    for (int i = 0; i < r1; i++)
+    for (int i = 0; i < r1; i++)  //multiplication
     {
         for (int j = 0; j < c2; j++)
         {
