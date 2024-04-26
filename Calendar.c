@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<conio.h>
 
 int leap(int year)
 {
@@ -73,8 +74,7 @@ int NoDay(int m, int y)
         }
     }
 
-    int start=0; start+=(total%7);
-    return start;
+    return (total%7);
 }
 
 void sp(int d)
@@ -86,16 +86,18 @@ void sp(int d)
     }
 }
 
-int main()
+void cal(int dat, int m, int y)
 {
-    int dat, m, y; printf("Enter the date: "); scanf("%d%d%d", &dat, &m, &y);
     printf("%s %d:\n", month(m), y);
     for (int i=1; i<=7; i++)
     {printf("%s  ", day(i));}
     printf("\n");
-    sp(NoDay(m, y));int d=NoDay(m, y)-1;
+    sp(NoDay(m, y));
+    int d=NoDay(m, y);
+    if (d!=0) {d-=1;}
     for (int i=1; i<=days(m, y); i++)
     {
+        if(d==7) {printf("\n"); d=0;}
         if (i<10) 
         {
             if(i!=dat) {printf(" %d   ", i);}
@@ -107,8 +109,103 @@ int main()
             else {printf("'%d' ", i);}
         }
         d++;
-        if (day(d)=="Sun")
-        {printf("\n");d=0;}
+    }
+    printf("\nUP arrow key: Same day, previous week.\nDOWN arrow key: Same day, next week.\nRIGHT arrow key: Next day.\nLEFT arrow key: Previous day.\nESC key: Exit calendar.\n");
+}
+
+int getKey()
+{
+    int ch;
+    ch = getch();
+    if (ch==0)
+    {
+        ch=getch();
+        return ch;
+    }
+    return ch;
+}
+
+int main()
+{
+    int dat, m, y; 
+    for (int i=0;;)
+    {
+        printf("Enter the date: "); scanf("%d%d%d", &dat, &m, &y);
+        if (dat<1 || dat>days(m, y))
+        {printf("Wrong date, please try again!!\n");}
+        else if(m<1 || m>12)
+        {printf("Wrong month, please try again!!\n");}
+        else {break;}
+    }
+    cal(dat, m, y);
+    for (int i=0;;)
+    {
+        if(getKey()==27) {break;}
+        switch (getKey())
+        {
+        case 72:if(dat>7) {dat-=7; cal(dat, m, y);}
+                else if (dat==7) {dat=days(m-1, y); m-=1; cal(dat, m, y);}
+                else 
+                {
+                    if (m>1) {dat=days(m-1, y)-(7-dat); m-=1; cal(dat, m, y);}
+                    else {dat=days(12, y-1)-(7-dat); m=12; y-=1; cal(dat, m, y);}
+                }
+                break;
+
+        case 80:if((days(m, y)-dat)>=7) {dat+=7; cal(dat, m, y);}
+                else
+                {
+                    if (m<12) {dat=7-(days(m, y)-dat); m+=1; cal(dat, m, y);}
+                    else {dat=7-(days(12, y)-dat); m=1; y+=1; cal(dat, m, y);}
+                }
+                break;
+                
+        case 75:/*if(m>1) 
+            {
+                if(dat==1) {dat=days(m-1, y); m-=1; cal(dat, m, y);}
+                else {dat-=1; cal(dat, m, y);}
+            }
+            else 
+            {
+                if(dat==1) { m=12; y-=1; dat=days(m, y); cal(dat, m, y);}
+                else {dat-=1; m=1; cal(dat, m, y);}
+            }
+            break;*/
+            if (dat == 1) 
+            {
+                if (m > 1) 
+                {
+                    m -= 1;
+                    dat = days(m, y);
+                } 
+                else 
+                {
+                    m = 12;
+                    y -= 1;
+                    dat = days(m, y);
+                }
+            } 
+            else 
+            {
+                    dat -= 1;
+            }
+            cal(dat, m, y);
+            break;
+
+        case 77:if (m<12)
+            {
+                if(dat==days(m, y)) {dat=1; m+=1; cal(dat, m, y);}
+                else {dat+=1; cal(dat, m, y);}
+            }  
+            else 
+            {
+                if(dat==days(12, y)) {dat=1; y+=1; cal(dat, 1, y);}
+                else {dat+=1; m=12; cal(dat, m, y);}
+            }
+            break;
+
+            default:break;
+        }
     }
     return 0;
 }
