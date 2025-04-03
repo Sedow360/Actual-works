@@ -86,3 +86,43 @@ int main()
 
     return 0;
 }
+
+/*Test solution:-
+
+No. of cities: 10
+Enter the edges:
+0 29 82 46 68 52 72 42 51 55
+29 0 55 46 42 43 43 23 23 31
+82 55 0 68 46 55 23 43 41 29
+46 46 68 0 82 15 72 31 62 42
+68 42 46 82 0 74 23 52 21 46
+52 43 55 15 74 0 61 23 55 31
+72 43 23 72 23 61 0 42 23 31
+42 23 43 31 52 23 42 0 33 15
+51 23 41 62 21 55 23 33 0 29
+55 31 29 42 46 31 31 15 29 0
+Start from: 0
+0 -> 1
+Iteration: 1: 0(prev) + 29(edge)
+1 -> 7
+Iteration: 2: 29(prev) + 23(edge)
+7 -> 9
+Iteration: 3: 52(prev) + 15(edge)
+9 -> 2
+Iteration: 4: 67(prev) + 29(edge)
+2 -> 6
+Iteration: 5: 96(prev) + 23(edge)
+6 -> 4
+Iteration: 6: 119(prev) + 23(edge)
+4 -> 8
+Iteration: 7: 142(prev) + 21(edge)
+8 -> 5
+Iteration: 8: 163(prev) + 55(edge)
+5 -> 3
+Iteration: 9: 218(prev) + 15(edge)
+Returning to start: 3 -> 0 (distance: 46)
+Total distance traveled: 279
+Route followed: 0 1 7 9 2 6 4 8 5 3 0
+
+
+*/
